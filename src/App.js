@@ -1,24 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './css/main.css'
+
+import Listing from './components/Listing';
+
+import data from './data/makeData';
+const actualData = [];
+for (const datum of data) {
+  const {
+    listing_id,
+    url,
+    MainImage,
+    title,
+    currency_code,
+    price,
+    quantity,
+  } = datum;
+  actualData.push({
+    listing_id,
+    url,
+    MainImage,
+    title,
+    currency_code,
+    price: (+price).toFixed(2),
+    quantity,
+  });
+}
+
+const finalData = actualData.filter(item => item.MainImage !== undefined);
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Listing items={finalData} />
     </div>
   );
 }
